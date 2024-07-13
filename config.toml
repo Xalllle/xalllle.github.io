@@ -5,7 +5,7 @@ description = "A Personal Electronics Hobby Blog"
 
 compile_sass = true
 build_search_index = false
-theme = "d3c3nt"
+#theme = "d3c3nt"
 
 default_language = "en"
 
