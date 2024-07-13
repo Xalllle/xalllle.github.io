@@ -1,4 +1,4 @@
-# do NOT include a trailing slash on the base URL
+## do NOT include a trailing slash on the base URL
 base_url = "https://abridge.netlify.app"
 # Usable site directly from disk, Including Search: "/home/jieiku/.dev/abridge/public"
 # Also set index format = "elasticlunr_javascript", and in [extra] uglyurls = true, integrity = false
