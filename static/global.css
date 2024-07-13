@@ -10,7 +10,7 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
   background-size: cover;
-  background-repeat: none;
+  background-repeat: no-repeat;
   background-position: 0px 0px,0px 0px,0px 0px;
   background-image: radial-gradient(75% 75% at 0% 106%, #0054FF40 0%, #071CFF2E 100%),radial-gradient(75% 75% at 82% 22%, #600E9F7A 0%, #155CAC36 51%, #073AFF00 99%, #600E9F00 100%),linear-gradient(121deg, #000000FF 0%, #2B023DFF 100%);
   padding: 0 3rem 3rem 3rem;
