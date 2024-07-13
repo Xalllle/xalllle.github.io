@@ -21,9 +21,9 @@ smart_punctuation = true
 [extra]
 # Put all your custom variables here
   d3_nav = [
-    { name = "HOME", path = "/" },
-    { name = "POSTS", path = "/posts/" },
-    { name = "CONFIG", path = "/config/" },
+    { name = "Home", path = "/" },
+    { name = "Projects", path = "/posts/" },
+    { name = "Config", path = "/config/" },
   ]
   d3_icon = "/icon.png"
   d3_twitter = "therealFIGBERT"

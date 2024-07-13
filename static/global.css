@@ -22,6 +22,10 @@ body {
   max-width: 40rem;
 }
 
+html, body{
+  min-height: 100%;
+}
+
 video, picture, img {
   width: 100%;
 }

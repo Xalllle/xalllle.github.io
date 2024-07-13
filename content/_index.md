@@ -3,6 +3,6 @@ title = "Home"
 template = "section.html"
 +++
 
-# Alectronics Personal Electronics Website
+# Alectronix Electronic Hobby Website
 
-Testing to see if I can change the website
+Hi! This website is intended to be an accumulation of the projects that I have done and will do. 
