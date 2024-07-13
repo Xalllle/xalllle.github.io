@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://d3c3nt.figbert.com/</loc>
+    </url>
+    <url>
+        <loc>https://d3c3nt.figbert.com/config/</loc>
+    </url>
+    <url>
+        <loc>https://d3c3nt.figbert.com/posts/</loc>
+    </url>
+    <url>
+        <loc>https://d3c3nt.figbert.com/posts/markdown-syntax/</loc>
+        <lastmod>2020-08-27</lastmod>
+    </url>
+    <url>
+        <loc>https://d3c3nt.figbert.com/posts/placeholder-text/</loc>
+        <lastmod>2020-08-24</lastmod>
+    </url>
+    <url>
+        <loc>https://d3c3nt.figbert.com/posts/rich-content/</loc>
+        <lastmod>2020-08-26</lastmod>
+    </url>
+</urlset>
