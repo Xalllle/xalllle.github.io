@@ -7,7 +7,7 @@ build_search_index = false
 theme = "d3c3nt"
 
 default_language = "en"
-generate_feed = true
+
 minify_html = true
 
 [markdown]
