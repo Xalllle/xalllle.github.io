@@ -1,7 +1,7 @@
 
 base_url = "https://alectronix.net"
-title = "d3c3nt :: FIGBERT"
-description = "A simple, clean, and flexible theme for personal sites."
+title = "Alectronix"
+description = "A Personal Electronics Hobby Blog"
 
 compile_sass = true
 build_search_index = false
@@ -27,5 +27,3 @@ smart_punctuation = true
     { name = "CONFIG", path = "/config/" },
   ]
   d3_icon = "/icon.png"
-  d3_twitter = "therealFIGBERT"
-  d3_author = "FIGBERT"
