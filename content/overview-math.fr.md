@@ -70,9 +70,7 @@ Enveloppez tout [valide](https://katex.org/docs/supported.html) $\KaTeX$ syntaxe
 C'est la plus belle équation que j'ai jamais vue:
 
 ### Usage
-```rs
-{%/* katex(block=false) */%} e^{i\pi}+1=0 {%/* end */%}
-```
+
 ### Sortir
 ```html
 {% katex(block=false) %} e^{i\pi}+1=0 {% end %}
