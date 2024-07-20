@@ -26,5 +26,5 @@ smart_punctuation = true
     { name = "Config", path = "/config/" },
   ]
   d3_icon = "/icon.png"
-  d3_twitter = "therealFIGBERT"
-  d3_author = "FIGBERT"
+  d3_twitter = "N/A"
+  d3_author = "Xalllle"
