@@ -19,6 +19,8 @@ I play the guitar and drums, and I love camping, gardening, gaming, and woodwork
 ## About this website
 This website is intended to be a place for me to organize my projects, as well as practice my github and programming skills. If you are looking to learn more about any of the projects on this website, please send me an email at ah@alectronix.net.
 
-![A picture of me holding a ruler like a sword, as viewed by an upside-down document camera](radio_tower.jpg "silly picture")
+
+
+![A picture of me on top of a radio tower during a ham radio contest](radio_tower.jpg "silly picture")
 ![A picture of me holding my hands in a devil horns shape](guitar_devil_horns.jpg "silly picture")
 ![A picture of me holding a ruler like a sword, as viewed by an upside-down document camera](ruler_sword.png "silly picture")

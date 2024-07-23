@@ -11,7 +11,10 @@ The first project in Intro to Engineering Design, also known as the mini project
 * Marshmallow launcher
 * Mousetrap car
 * Line follower
+
 I decided to build a line follower since I wanted to work with microcontrollers and control systems. In this post, I will be omitting most considerations made for the class, and instead will be focusing on the technical details of the actual project.
+
+
 
 # Design
 The goal of a line follower is to travel along a high contrast line that is drawn onto the ground, as quickly and accurately as possible.
