@@ -23,7 +23,7 @@ smart_punctuation = true
   d3_nav = [
     { name = "Home", path = "/" },
     { name = "Projects", path = "/posts/" },
-    { name = "Config", path = "/config/" },
+    { name = "Gallery", path = "/gallery/" },
   ]
   d3_icon = "/icon.png"
   d3_twitter = "N/A"
