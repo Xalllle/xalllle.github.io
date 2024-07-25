@@ -142,6 +142,49 @@ while(on){ //True when the toggle pin has been made high and one or more of the 
 
     }
 
+int position(){
+    //This function returns the current location of the vehicle on the black line;
+    //It assumes that the location is centered if no black line is detected
+    int actualPosition = 0;
+    int leftSensor2 = digitalRead(ls2);
+    int leftSensor1 = digitalRead(ls1);
+    int middleSensor = digitalRead(ms);
+    int rightSensor1 = digitalRead(rs1);
+    int rightSensor2 = digitalRead(rs2);
+    if ((leftSensor2 == 0) or (leftSensor1 == 0) or (middleSensor == 0) or (rightSensor1 == 0) or (rightSensor2 == 0)){
+        sensorCheck = 1;
+    }
+    if ((leftSensor2 == 1) && (rightSensor2 == 1)) {
+        actualPosition = 0;
+    } else if (leftSensor2 == 1) {
+        if(leftSensor1 == 1){
+            actualPosition = 30;
+        } else {
+            actualPosition = 70;
+        }
+    } else if (rightSensor2 == 1) {
+        if(rightSensor1 == 1){
+            actualPosition = -30;
+        } else {
+            actualPosition = -70;
+        }
+    } else if (leftSensor1 == 1){
+        if(middleSensor == 1){
+            actualPosition = 10;
+        } else {
+            actualPosition = 20;
+        }
+    } else if (rightSensor1 == 1){
+        if(middleSensor == 1){
+            actualPosition = -10;
+        } else {
+            actualPosition = -20;
+        }
+    } else {
+        actualPosition = 0;
+    }
+}
+
 }
 ```
 
@@ -149,4 +192,14 @@ Alas, tuning the kp, ki, and kd values allowed for a very accurate way to contro
 
 ![Completed line follower car](https://lh3.googleusercontent.com/pw/AP1GczNZFRnojcoJfYT7Nn_BzgAyqVOWJhfBOXt9AnoCl9W4d2wt1DwKY83tVhGLIYy9pfe0cLW_d664pLzhut5QDAZM6SfgT0Sgaw643-bjSLIh9j1GD-Ook8_0AHEx1wc5pr8gau-umOe2wb9c5B_1pc_UxQ=w1034-h776-s-no-gm "Line Follower Car")
 
+# Design Choices
+
+## Batteries
+Lithium-ion batteries are against the rules of this contest since they are considered dangerous, so we had to use some other chemistry. Alkaline batteries are considered safe, but have a very limited power output, which we found was nearly inadequate for the project. The batteries discharged quickly, which made testing very challenging and was cause for concern for demonstration day.
+## Sensor placement
+Initially the sensors were placed leaning over the front of the car. By putting these sensors so far from the turning axis, it artificially makes the car much longer, and as a result makes it challenging to make tight turns. This is improved by cutting out a hole on the bottom of the car, and placing the sensors as close to the wheels as possible.
+## Weight distribution
+On top of the sensor location being important for turn radius, the center of mass needs to project over the turning axis, otherwise the motors experience excessive strain and draw too much energy. 
+
+# Conclusion
 I did quite well on this project, and the technical memo can be found [here](https://docs.google.com/document/d/1lLpQpZ7HjyCS6mYA5WTK6pZ1qwjJXwpjk2m00m6qDpM/edit?usp=sharing). I attempted to remove any of my partners personal information from this document. If you have any questions about this project, please feel free to send me an email at ah@alectronix.net!
