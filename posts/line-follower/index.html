@@ -1,0 +1,144 @@
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta content="width=device-width" name=viewport><title>Line Follower Car :: Alectronix</title><link href=https://alectronix.net/global.css rel=stylesheet><meta content="An Intro to Engineering Design Mini-Project" name=description><meta content="Line Follower Car :: Alectronix" property=og:title><meta content="An Intro to Engineering Design Mini-Project" property=og:description><meta content=website property=og:type><meta content=https://alectronix.net/posts/line-follower/ property=og:url><link href=https://alectronix.net/posts/line-follower/ rel=canonical><meta content=summary name=twitter:card><meta content=@N/A name=twitter:creator><link href=/icon.png rel=icon><meta content=#1F1E1E name=theme-color><body><header><nav><a href=/>Home</a><a href=/posts/>Projects</a><a href=/gallery/>Gallery</a></nav><hr></header><main><article><h1><a href=https://alectronix.net/posts/line-follower/>Line Follower Car</a></h1><small> <time datetime=2024-07-23>July 23, 2024</time> by <a href=https://alectronix.net>Xalllle</a> </small><h6 id=please-note-that-this-project-was-created-in-the-spring-semester-of-2024-but-the-article-was-published-on-the-date-above>(Please note that this project was created in the Spring semester of 2024, but the article was published on the date above)</h6><h1 id=introduction>Introduction</h1><p>The first project in Intro to Engineering Design, also known as the mini project, gives students three options for choosing a topic. Those options are:<ul><li>Marshmallow launcher<li>Mousetrap car<li>Line follower</ul><p>I decided to build a line follower since I wanted to work with microcontrollers and control systems. In this post, I will be omitting most considerations made for the class, and instead will be focusing on the technical details of the actual project. (The technical memo is linked at the bottom of the page if you are interested in either more detail or how this is related to the course)<p><img alt="A Silhouette of a line follower car" src="https://lh3.googleusercontent.com/pw/AP1GczO9RO5wbanPpOPcDrdrVfOZqylvJ6VWh41Fb3jL6Xuru-B4vRQ3VvfhgYiGWMOXVFnSdGZKAZXbJQLy9jTMBbQG9-Vw6D60eQ7RQ0CTgH-ykx5jg2N1Vo4VsIJBv4Byk3QLPuzH4QTr1AUvVTYj1WqPBg=w1034-h775-s-no-gm" title="Line Follower Car Silhouette"><h1 id=design>Design</h1><p>The goal of a line follower is to travel along a high contrast line that is drawn onto the ground, as quickly and accurately as possible.<p>When designing this system, I started by determining the expected inputs and outputs of the line follower control scheme. The input would be some kind of sensor data to determine its rotational position with respect to the line, and the output would be forward or backward movement for the motors.<p><img alt="Block Diagram of Line Follower Car" src="https://lh3.googleusercontent.com/pw/AP1GczPENKybI5cwcgWG5uBRzsUQNuX8IC_b5oBvEqkCJCj5e0cXnUUcDrHMdAdM3cE3MK-9xo3tjbETEMOYwj3-hkpAwFLsOspmlrSvk62DY5YnRTc2R9BqMeC9TJmTlxwDJLhIUX2Qkm_fOGxXDDENb9Kq_Q=w1034-h582-s-no-gm" title="Control Scheme"><p>To determine rotational position with respect to the line of a track which was not disclosed to use before the demonstration, the car needed to “see” the line. To make this as simple as possible, line follower sensors were the sensor of choice.<p>Inexpensive line-follower sensors are composed of an infrared LED and an infrared sensor, along with an integrated circuit that interprets the analog value of the infrared sensor input to determine if a surface reflects (white) or absorbs (black) the infrared light. This sensor package is then able to output a high or low state. Using two sensors would be the cheapest and simplest way to control the car, since it could be designed to drive forward and just turn left or right if the sensors detect the line. However, using four of these sensors allows us to increase the resolution of the “location” of the car, which allows for a control system that is much more dynamic, precise, and speedy.<p>To begin, we were given a chassis that included two wheels, two motors with speed reduction gearboxes, a chassis with a low-friction ball underneath it, a 4s AA battery pack, and an H bridge motor driver. Additionally, we were allowed to use either analog electronics (7400 series ICs) or digital electronics (Microcontrollers). Due to an abundance of arduino boards, I picked the latter.<p>The first task was to create a rough prototype to see if this strategy would work. I began by programming a very simple code which would move the car forward, and turn left or right if a sensor “bumped” into the black line. It looked roughly like the psuedocode below:<p><img alt="Diagram of Line Follower Car" src="https://lh3.googleusercontent.com/pw/AP1GczNOM74qFjW7Lt1JNa6DTNfGFWLInuplG3iaAVTRzr4Lt0ly5anVFYqesJyTV62y-IfbmlYQaTQQLZBou17yMgeAN4QaP-M9Dgncmyd98WH63KEopp0yJkNTdGLTeRr3FiHjFsEIAcvsvgJ2-y8RhAWo5A=w787-h467-s-no-gm" title=Diagram><pre style=color:#dcdcdc;background-color:#1e1e1e><code><span>initialize pins/functions
+</span><span>
+</span><span>while(1)
+</span><span>    if(left sensor = 1)
+</span><span>        move right
+</span><span>    else if(right sensor = 1)
+</span><span>        move left
+</span><span>    else if(left sensor = 0 and right sensor = 0)
+</span><span>        move forward
+</span><span>
+</span><span>move function
+</span></code></pre><p>The result was a very slow and unpredictable car which had a tendency to launch all of the components off of the vehicle whenever it turned. Nonetheless, this test proved that the hardware was capable of the task at hand.<p>I then soldered an array of line follower sensors to a protoboard to make power distribution easier and make a more rigid system, and I latched them to the front of the car behind a screw that was hanging down from the body.<p><img alt="Sensor array on front of car" src="https://lh3.googleusercontent.com/pw/AP1GczNedksKaMOZGTW4kv99N0c8MSF3jJ9WTQjmD04Esyz1KzPEv4dWWj5PvtZ7kJVh5c2uS14Eg3IZi7ouFiMwqpy79Fha76dBpd_h5w46q6s_cVEx3c2Vqcm9YitFgFDmGWSdrjjxjVwgM3RFkMnMmYWdLg=w1034-h775-s-no-gm" title="Sensor Array"><p>Next, I wanted to create a program that used a PID control scheme so that I could easily control and modify the vehicles ability to adhere to a line. I created a sensor function which would return the location of the car on the track, and for the PID scheme I assumed that the car always wanted to be at position “0”. The code was very simple, and followed the simple program below:<pre style=color:#dcdcdc;background-color:#1e1e1e><code><span>#define ls1 2
+</span><span>#define ls2 4
+</span><span>#define ms 5
+</span><span>#define rs1 6
+</span><span>#define rs2 7
+</span><span>#define motorL 11
+</span><span>#define motorR 9
+</span><span>#define motorLBACK 10
+</span><span>#define motorRBACK 3
+</span><span>
+</span><span>int on = 0; //Control Loop Toggle
+</span><span>int leftWheelOut; //Output to pin 9
+</span><span>int rightwheelOut; //Output to pin 10
+</span><span>float kp = 1;
+</span><span>float ki = 0.0001;
+</span><span>float kd = 0.1;
+</span><span>int bias = 0;
+</span><span>int timelast = 0;
+</span><span>int integral = 0;
+</span><span>int derivative = 0;
+</span><span>float output = 0;
+</span><span>int time = 0;
+</span><span>int desired_value = 0;
+</span><span>int actual_value = 0;
+</span><span>int error = 0;
+</span><span>int integral_prior = 0;
+</span><span>int error_prior = 0;
+</span><span>int sensorCheck = 0;
+</span><span>int leftSensor = 0;
+</span><span>int rightSensor = 0;
+</span><span>
+</span><span>void setup() {
+</span><span>    pinMode(ls1, INPUT_PULLUP);//Initialize left sensor 1
+</span><span>    pinMode(1s2, INPUT_PULLUP);//Initialize left sensor 2
+</span><span>    pinMode(rs1, INPUT_PULLUP);//Initialize right sensor 1
+</span><span>    pinMode(rs2, INPUT_PULLUP);//Initialize right sensor 2
+</span><span>}
+</span><span>
+</span><span>void loop() {
+</span><span>    position();
+</span><span>    if(!digitalRead(13) and sensorCheck){
+</span><span>        on = 1;
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>while(on){ //True when the toggle pin has been made high and one or more of the sensors has changed state
+</span><span>
+</span><span>    //////////////////////
+</span><span>    //PID Control Scheme//
+</span><span>    //////////////////////
+</span><span>
+</span><span>    timelast = time-millis();
+</span><span>    desired_value = 0;
+</span><span>    actual_value = position();
+</span><span>    error = desired_value - actual_value:
+</span><span>    integral = integral_prior+error-timelast;
+</span><span>    derivative = (error - error_prior)/timelast;
+</span><span>    output = kp*error+ki*integral+kd*derivative+bias;
+</span><span>    error_prior=error;
+</span><span>    integral_prior=integral;
+</span><span>    time = millis();
+</span><span>
+</span><span>    /////////////////////////
+</span><span>    //Differential Steering//
+</span><span>    /////////////////////////
+</span><span>
+</span><span>    leftwheelOut = 30+output; //inversely offsets the PWM value of the wheels
+</span><span>    rightwheelOut = 30-output;
+</span><span>
+</span><span>    if (leftwheelOut >= 0){ //Tries to allow for wheels to spin backwards in case of very tight turns
+</span><span>        analogWrite(motorL,pwm( leftWheelOut));
+</span><span>        analogWrite(motorLBACK, 0);
+</span><span>
+</span><span>    } else if (leftWheelOut < 0 ){
+</span><span>        analogWrite(motorL, 0);
+</span><span>        analogWrite(motorLBACK, pwm(leftWheelOut));
+</span><span>    }
+</span><span>
+</span><span>    if (rightwheelOut -= 0){
+</span><span>        analogWrite(motorR, pwm( rightwheelout));
+</span><span>        analogWrite(motorRBACK, 0);
+</span><span>
+</span><span>    } else if (rightwheelOut < 0 ){
+</span><span>        analogWrite(motorR,0);
+</span><span>        analogWrite(motorRBACK  pwm( rightwheelOut));
+</span><span>
+</span><span>    }
+</span><span>
+</span><span>int position(){
+</span><span>    //This function returns the current location of the vehicle on the black line;
+</span><span>    //It assumes that the location is centered if no black line is detected
+</span><span>    int actualPosition = 0;
+</span><span>    int leftSensor2 = digitalRead(ls2);
+</span><span>    int leftSensor1 = digitalRead(ls1);
+</span><span>    int middleSensor = digitalRead(ms);
+</span><span>    int rightSensor1 = digitalRead(rs1);
+</span><span>    int rightSensor2 = digitalRead(rs2);
+</span><span>    if ((leftSensor2 == 0) or (leftSensor1 == 0) or (middleSensor == 0) or (rightSensor1 == 0) or (rightSensor2 == 0)){
+</span><span>        sensorCheck = 1;
+</span><span>    }
+</span><span>    if ((leftSensor2 == 1) && (rightSensor2 == 1)) {
+</span><span>        actualPosition = 0;
+</span><span>    } else if (leftSensor2 == 1) {
+</span><span>        if(leftSensor1 == 1){
+</span><span>            actualPosition = 30;
+</span><span>        } else {
+</span><span>            actualPosition = 70;
+</span><span>        }
+</span><span>    } else if (rightSensor2 == 1) {
+</span><span>        if(rightSensor1 == 1){
+</span><span>            actualPosition = -30;
+</span><span>        } else {
+</span><span>            actualPosition = -70;
+</span><span>        }
+</span><span>    } else if (leftSensor1 == 1){
+</span><span>        if(middleSensor == 1){
+</span><span>            actualPosition = 10;
+</span><span>        } else {
+</span><span>            actualPosition = 20;
+</span><span>        }
+</span><span>    } else if (rightSensor1 == 1){
+</span><span>        if(middleSensor == 1){
+</span><span>            actualPosition = -10;
+</span><span>        } else {
+</span><span>            actualPosition = -20;
+</span><span>        }
+</span><span>    } else {
+</span><span>        actualPosition = 0;
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>}
+</span></code></pre><p>Alas, tuning the kp, ki, and kd values allowed for a very accurate way to control the vehicle’s movement sensitivity, and the only course that the car wasn’t capable of completing was the very hard course (due to my inability to get the H-Bridge driver to drive the wheels backwards, which would allow the turn radius to be smaller than the length of the car).<p><img alt="Completed line follower car" src="https://lh3.googleusercontent.com/pw/AP1GczNZFRnojcoJfYT7Nn_BzgAyqVOWJhfBOXt9AnoCl9W4d2wt1DwKY83tVhGLIYy9pfe0cLW_d664pLzhut5QDAZM6SfgT0Sgaw643-bjSLIh9j1GD-Ook8_0AHEx1wc5pr8gau-umOe2wb9c5B_1pc_UxQ=w1034-h776-s-no-gm" title="Line Follower Car"><h1 id=design-choices>Design Choices</h1><h2 id=batteries>Batteries</h2><p>Lithium-ion batteries are against the rules of this contest since they are considered dangerous, so we had to use some other chemistry. Alkaline batteries are considered safe, but have a very limited power output, which we found was nearly inadequate for the project. The batteries discharged quickly, which made testing very challenging and was cause for concern for demonstration day.<h2 id=sensor-placement>Sensor placement</h2><p>Initially the sensors were placed leaning over the front of the car. By putting these sensors so far from the turning axis, it artificially makes the car much longer, and as a result makes it challenging to make tight turns. This is improved by cutting out a hole on the bottom of the car, and placing the sensors as close to the wheels as possible.<h2 id=weight-distribution>Weight distribution</h2><p>On top of the sensor location being important for turn radius, the center of mass needs to project over the turning axis, otherwise the motors experience excessive strain and draw too much energy.<h1 id=conclusion>Conclusion</h1><p>I did quite well on this project, and the technical memo can be found <a href="https://docs.google.com/document/d/1lLpQpZ7HjyCS6mYA5WTK6pZ1qwjJXwpjk2m00m6qDpM/edit?usp=sharing" rel="noopener nofollow noreferrer" target=_blank>here</a>. I attempted to remove any of my partners personal information from this document. If you have any questions about this project, please feel free to send me an email at ah@alectronix.net!</article></main>
